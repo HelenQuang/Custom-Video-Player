@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to Tampere</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <h1>Welcome to Tampere, Finland</h1>
+    <div class="player">
+      <video controls>
+        <source src="video/Visit Tampere, Finland.mp4" type="video/mp4" />
+      </video>
+      <div class="controls">
+        <button
+          class="play"
+          data-icon="P"
+          aria-label="play pause toggle"
+        ></button>
+        <button class="stop" data-icon="S" aria-label="stop"></button>
+        <div class="timer">
+          <div></div>
+          <span aria-label="timer">00:00</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
