@@ -11,17 +11,29 @@
       <video controls>
         <source src="video/Visit Tampere, Finland.mp4" type="video/mp4" />
       </video>
+
       <div class="controls">
         <button
           class="play"
           data-icon="P"
           aria-label="play pause toggle"
         ></button>
+
         <button class="stop" data-icon="S" aria-label="stop"></button>
-        <div class="timer">
-          <div></div>
-          <span aria-label="timer">00:00</span>
+
+        <div>
+          <input
+            type="range"
+            id="progress"
+            class="progress"
+            min="0"
+            max="100"
+            step="0.1"
+            value="0"
+          />
         </div>
+
+        <span class="timestamp" aria-label="timestamp">00:00</span>
       </div>
     </div>
 

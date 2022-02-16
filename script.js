@@ -1,64 +1,61 @@
-const media = document.querySelector("video");
+const video = document.querySelector("video");
 const controls = document.querySelector(".controls");
-
 const play = document.querySelector(".play");
 const stop = document.querySelector(".stop");
 
-const timerWrapper = document.querySelector(".timer");
-const timer = document.querySelector(".timer span");
-const timerBar = document.querySelector(".timer div");
+const progress = document.querySelector(".progress");
+const timestamp = document.querySelector(".timestamp");
 
-media.removeAttribute("controls");
+video.removeAttribute("controls");
 controls.style.visibility = "visible";
 
-play.addEventListener("click", playPauseMedia);
-stop.addEventListener("click", stopMedia);
-media.addEventListener("ended", stopMedia);
-
-media.addEventListener("timeupdate", setTime);
-
-function playPauseMedia() {
-  if (media.paused) {
+//To play and pause video
+function playPauseVideo() {
+  if (video.paused) {
     play.setAttribute("data-icon", "u");
-    media.play();
+    video.play();
   } else {
     play.setAttribute("data-icon", "P");
-    media.pause();
+    video.pause();
   }
 }
 
-function stopMedia() {
-  media.pause();
-  media.currentTime = 0;
-  rwd.classList.remove("active");
-  fwd.classList.remove("active");
-  clearInterval(intervalRwd);
-  clearInterval(intervalFwd);
+//Stop video
+function stopVideo() {
+  video.pause();
+  video.currentTime = 0;
   play.setAttribute("data-icon", "P");
 }
 
+//Update timer and time bar
 function setTime() {
-  let minutes = Math.floor(media.currentTime / 60);
-  let seconds = Math.floor(media.currentTime - minutes * 60);
-  let minuteValue;
-  let secondValue;
+  progress.value = (video.currentTime / video.duration) * 100;
+
+  let minutes = Math.floor(video.currentTime / 60);
+  let seconds = Math.floor(video.currentTime - minutes * 60);
 
   if (minutes < 10) {
-    minuteValue = "0" + minutes;
-  } else {
-    minuteValue = minutes;
+    minutes = "0" + String(minutes);
   }
 
   if (seconds < 10) {
-    secondValue = "0" + seconds;
-  } else {
-    secondValue = seconds;
+    seconds = "0" + String(seconds);
   }
 
-  let mediaTime = minuteValue + ":" + secondValue;
-  timer.textContent = mediaTime;
-
-  let barLength =
-    timerWrapper.clientWidth * (media.currentTime / media.duration);
-  timerBar.style.width = barLength + "px";
+  timestamp.textContent = `${minutes}:${seconds}`;
 }
+
+//Set video to the progess point
+function setVideoProgress() {
+  video.currentTime = (+progress.value * video.duration) / 100;
+}
+
+//Event listeners
+video.addEventListener("click", playPauseVideo);
+video.addEventListener("ended", stopVideo);
+video.addEventListener("timeupdate", setTime);
+
+play.addEventListener("click", playPauseVideo);
+stop.addEventListener("click", stopVideo);
+
+progress.addEventListener("change", setVideoProgress);
